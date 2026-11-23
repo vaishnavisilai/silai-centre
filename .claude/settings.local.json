@@ -4,7 +4,11 @@
       "Bash(.venv/Scripts/python.exe encode.py 917054584727)",
       "Bash(.venv/Scripts/python.exe encode.py vipinpandey128@gmail.com)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git checkout *)",
+      "Bash(git merge *)",
+      "Bash(git push *)",
+      "Bash(git stash *)"
     ]
   }
 }
