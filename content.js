@@ -7,15 +7,15 @@ window.SITE = {
 
   config: {
     name: { en: "Jhusi Silai Centre", hi: "झूँसी सिलाई सेंटर" },
-    address: "Near Main Chauraha, Jhusi, Prayagraj, Uttar Pradesh 211019",
-    mapQuery: "Jhusi, Prayagraj, Uttar Pradesh",   // shop name or "lat,lng"
+    address: "Near Chamanganj Bazar, Jhusi, Prayagraj, Uttar Pradesh 211019",
+    mapQuery: "Chamanganj Bazar, Jhusi, Prayagraj, Uttar Pradesh",   // shop name or "lat,lng"
 
     // PHONE / EMAIL ARE HIDDEN FROM BOTS. Never type them in plain text.
     // Make the encoded values with:   python3 encode.py 919876543210
     // (country code + number, no + or spaces)
-    phoneEnc: "MDAwMDAwMDA4OTE5",                  // EXAMPLE ONLY - replace with your own
-    phoneMask: "+91 98••• •••••",                   // what visitors see before tapping
-    emailEnc: "bW9jLmVscG1heGVAb2xsZWg=",          // EXAMPLE ONLY - replace with your own
+    phoneEnc: "NzI3NDg1NDUwNzE5",
+    phoneMask: "+91 705••• ••••",                   // what visitors see before tapping
+    emailEnc: "bW9jLmxpYW1nQDgyMXllZG5hcG5pcGl2",
 
     formspree: ""                                  // e.g. "https://formspree.io/f/xxxxxxx"
   },
@@ -84,12 +84,14 @@ window.SITE = {
 
   // Frequently asked questions (also good for Google search)
   faqs: [
-    { q: { en: "Where is the best ladies blouse tailor in Jhusi, Prayagraj?", hi: "झूँसी, प्रयागराज में लेडीज़ ब्लाउज़ टेलर कहाँ मिलेगा?" }, a: { en: "Jhusi Silai Centre stitches ladies blouses and petticoats in Jhusi, Prayagraj with perfect fitting and 2-day delivery on regular designs.", hi: "झूँसी सिलाई सेंटर झूँसी, प्रयागराज में लेडीज़ ब्लाउज़ और पेटीकोट की परफेक्ट फिटिंग के साथ सिलाई करता है; साधारण डिज़ाइन 2 दिन में तैयार।" } },
-    { q: { en: "How fast can I get my blouse stitched?", hi: "ब्लाउज़ कितनी जल्दी सिल जाता है?" }, a: { en: "Regular blouses and petticoats are ready in 2 days. Heavy, bridal or festive work takes longer — ask for a date.", hi: "साधारण ब्लाउज़ और पेटीकोट 2 दिन में तैयार। भारी/दुल्हन/त्योहार वर्क में ज़्यादा समय — तारीख़ पूछें।" } },
-    { q: { en: "Do you offer home pickup?", hi: "क्या घर से पिकअप होता है?" }, a: { en: "Yes, it is optional. Choose 'Pickup & drop at my home' in the contact form and share your location. It adds an extra charge to the price, and payment is taken first.", hi: "हाँ, यह वैकल्पिक है। संपर्क फ़ॉर्म में 'घर से पिकअप और ड्रॉप' चुनें और लोकेशन भेजें। इससे कीमत में अतिरिक्त शुल्क जुड़ता है और पेमेंट पहले लिया जाता है।" } },
-    { q: { en: "What if the fitting is not right?", hi: "अगर फिटिंग सही न हो तो?" }, a: { en: "Tell us within 7 days and we will correct the fitting. Alteration and fall-pico are only ₹50.", hi: "7 दिन के अंदर बताइए, हम फिटिंग ठीक करेंगे। अल्टरेशन और फॉल-पिको सिर्फ़ ₹50।" } }
+    { q: { en: "Where is the best ladies blouse tailor near Chamanganj Bazar, Jhusi, Prayagraj?", hi: "चमनगंज बाज़ार, झूँसी, प्रयागराज के पास सबसे अच्छा लेडीज़ टेलर कहाँ है?" }, a: { en: "Jhusi Silai Centre is located near Chamanganj Bazar, Jhusi, Prayagraj. We stitch ladies blouses and petticoats with perfect fitting and 2-day delivery on regular designs.", hi: "झूँसी सिलाई सेंटर चमनगंज बाज़ार, झूँसी, प्रयागराज के पास है। हम परफेक्ट फिटिंग के साथ लेडीज़ ब्लाउज़ और पेटीकोट सिलाई करते हैं; साधारण डिज़ाइन 2 दिन में तैयार।" } },
+    { q: { en: "Do you serve customers from Chamanganj Bazar area?", hi: "क्या आप चमनगंज बाज़ार इलाके के ग्राहकों को सेवा देते हैं?" }, a: { en: "Yes! We are located near Chamanganj Bazar, Jhusi and serve all nearby areas including Jhusi, Arail, Phaphamau, Naini, Civil Lines and all of Prayagraj.", hi: "हाँ! हम चमनगंज बाज़ार, झूँसी के पास हैं और झूँसी, अराइल, फाफामऊ, नैनी, सिविल लाइंस और पूरे प्रयागराज के ग्राहकों को सेवा देते हैं।" } },
+    { q: { en: "How fast can I get my blouse stitched in Jhusi?", hi: "झूँसी में ब्लाउज़ कितनी जल्दी सिल जाता है?" }, a: { en: "Regular blouses and petticoats are ready in 2 days. Heavy, bridal or festive work takes longer — ask for a date.", hi: "साधारण ब्लाउज़ और पेटीकोट 2 दिन में तैयार। भारी/दुल्हन/त्योहार वर्क में ज़्यादा समय — तारीख़ पूछें।" } },
+    { q: { en: "Do you offer home pickup from Chamanganj Bazar, Jhusi?", hi: "क्या आप चमनगंज बाज़ार, झूँसी से घर पर पिकअप करते हैं?" }, a: { en: "Yes, home pickup is optional. Choose 'Pickup & drop at my home' in the contact form and share your location. It adds an extra charge, and payment is taken first.", hi: "हाँ, घर से पिकअप वैकल्पिक है। संपर्क फ़ॉर्म में 'घर से पिकअप और ड्रॉप' चुनें और लोकेशन भेजें। इससे अतिरिक्त शुल्क जुड़ता है और पेमेंट पहले लिया जाता है।" } },
+    { q: { en: "What is the minimum blouse stitching charge in Jhusi, Prayagraj?", hi: "झूँसी, प्रयागराज में ब्लाउज़ सिलाई का न्यूनतम चार्ज क्या है?" }, a: { en: "Blouse and petticoat stitching starts from ₹150. Alteration and fall-pico is only ₹50. Bridal and heavy-work blouses are quoted separately.", hi: "ब्लाउज़ और पेटीकोट सिलाई ₹150 से शुरू। अल्टरेशन और फॉल-पिको सिर्फ़ ₹50। दुल्हन और भारी वर्क का कोटेशन अलग से।" } },
+    { q: { en: "What if the fitting is not right?", hi: "अगर फिटिंग सही न हो तो?" }, a: { en: "Tell us within 7 days and we will correct the fitting free of charge. Alteration and fall-pico are only ₹50.", hi: "7 दिन के अंदर बताइए, हम फिटिंग निःशुल्क ठीक करेंगे। अल्टरेशन और फॉल-पिको सिर्फ़ ₹50।" } }
   ],
 
   // Areas served (shown as chips; helps local search)
-  areas: ["Jhusi", "Prayagraj (Allahabad)", "Arail", "Phaphamau", "Naini", "Civil Lines", "Jhunsi Chhatnag"]
+  areas: ["Chamanganj Bazar, Jhusi", "Jhusi", "Prayagraj (Allahabad)", "Arail", "Phaphamau", "Naini", "Civil Lines", "Jhunsi Chhatnag", "Sangam Area", "Lukerganj", "Daraganj"]
 };

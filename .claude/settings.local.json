@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/Scripts/python.exe encode.py 917054584727)",
+      "Bash(.venv/Scripts/python.exe encode.py vipinpandey128@gmail.com)"
+    ]
+  }
+}
