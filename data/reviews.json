@@ -1,0 +1,26 @@
+{
+  "reviewsAreSamples": true,
+  "reviews": [
+    {
+      "id": "s1",
+      "name": "Sunita, Jhusi",
+      "rating": 5,
+      "text": { "en": "Perfect blouse fitting, and delivered on time!", "hi": "ब्लाउज़ की फिटिंग एकदम परफेक्ट थी, समय पर मिल गया!" },
+      "date": "2026-10-02"
+    },
+    {
+      "id": "s2",
+      "name": "Priya, Prayagraj",
+      "rating": 5,
+      "text": { "en": "Beautiful back design, everyone asked where I got it stitched.", "hi": "बैक डिज़ाइन बहुत सुंदर, सबने पूछा कहाँ सिलवाया।" },
+      "date": "2026-10-15"
+    },
+    {
+      "id": "s3",
+      "name": "Anita, Allahabad",
+      "rating": 4,
+      "text": { "en": "Got a heavy blouse made for a wedding — came out gorgeous.", "hi": "शादी के लिए भारी ब्लाउज़ बनवाया, बहुत सुंदर बना।" },
+      "date": "2026-11-05"
+    }
+  ]
+}

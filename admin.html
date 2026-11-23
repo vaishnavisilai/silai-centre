@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Reviews Admin – Jhusi Silai Centre</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body{padding-bottom:40px}
+  .wrap{width:min(900px,100% - 28px);margin:24px auto}
+  h1{font-size:1.7rem;color:var(--maroon-d);margin-bottom:6px}
+  .lead{margin:0 0 18px;max-width:none;font-size:.95rem}
+  .panel{background:#fff;border:1px solid rgba(201,162,74,.45);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);margin-bottom:18px}
+  .panel h2{font-size:1.15rem;color:var(--maroon);margin-bottom:12px}
+  .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .bar .btn{padding:10px 18px;font-size:.9rem}
+  .state{font-size:.88rem;font-weight:600;color:var(--muted)}
+  .state.dirty{color:#b45309}.state.ok{color:#1b7a3d}
+  .row{display:grid;grid-template-columns:1fr 110px;gap:10px;padding:14px 0;border-top:1px dashed var(--gold)}
+  .row:first-of-type{border-top:0}
+  .row .cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-width:0}
+  .row label{font-size:.78rem}
+  .row .side{display:flex;flex-direction:column;gap:8px}
+  .row .full{grid-column:1/-1}
+  .del{background:none;border:1.5px solid #c0392b;color:#c0392b;border-radius:99px;padding:6px 10px;cursor:pointer;font:600 .8rem 'Poppins',sans-serif}
+  .del:hover{background:#c0392b;color:#fff}
+  .chk{display:flex;gap:6px;align-items:center;font-size:.82rem;font-weight:600}
+  .chk input{width:auto}
+  .add{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .add .full{grid-column:1/-1}
+  .hint{color:var(--muted);font-size:.82rem}
+  .empty{color:var(--muted);padding:12px 0}
+  @media (max-width:640px){.row,.row .cols,.add{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Reviews Admin</h1>
+  <p class="lead">Add, edit or delete reviews here. This page works in your browser only, no server needed. Changes go live when you replace <b>data/reviews.json</b> on your website with the saved file. Nobody else can change your site from this page.</p>
+
+  <div class="panel">
+    <h2>1. Open your reviews file</h2>
+    <div class="bar">
+      <button class="btn" id="openBtn" type="button">Open data/reviews.json</button>
+      <input type="file" id="fileIn" accept=".json,application/json" hidden>
+      <span class="state" id="fileState">Loading…</span>
+    </div>
+    <p class="hint" style="margin-top:8px">Chrome/Edge on a computer can save straight back into the same file. Other browsers download a new <b>reviews.json</b>; put it in the <b>data</b> folder, replacing the old one.</p>
+  </div>
+
+  <div class="panel">
+    <h2>2. Add a review</h2>
+    <div class="field full" style="margin-bottom:12px">
+      <label for="pasteBox">Customer sent you a review on WhatsApp / email? Paste the whole message here</label>
+      <textarea id="pasteBox" rows="3" placeholder='New review ... {"name":"Meena","rating":5,"text":"..."}'></textarea>
+      <div class="bar" style="margin-top:8px"><button class="btn btn-ghost btn-small" id="pasteBtn" type="button">Read pasted review</button><span class="hint" id="pasteMsg"></span></div>
+    </div>
+    <div class="add">
+      <div class="field"><label for="aName">Customer name &amp; place</label><input id="aName" placeholder="Sunita, Jhusi"></div>
+      <div class="field"><label for="aRating">Stars</label>
+        <select id="aRating"><option value="5">5 ★★★★★</option><option value="4">4 ★★★★☆</option><option value="3">3 ★★★☆☆</option><option value="2">2 ★★☆☆☆</option><option value="1">1 ★☆☆☆☆</option></select></div>
+      <div class="field full"><label for="aText">Review (English or Hindi, whichever the customer wrote)</label><textarea id="aText" rows="2"></textarea></div>
+      <div class="field full"><label for="aHi">Hindi version (optional, shown when the site is in Hindi)</label><textarea id="aHi" rows="2"></textarea></div>
+      <div class="full"><button class="btn" id="addBtn" type="button">Add review</button> <span class="hint" id="addMsg"></span></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>3. All reviews <span class="hint" id="count"></span></h2>
+    <div id="list"></div>
+  </div>
+
+  <div class="panel">
+    <h2>4. Save</h2>
+    <div class="bar">
+      <button class="btn" id="saveBtn" type="button">Save reviews.json</button>
+      <span class="state" id="saveState"></span>
+    </div>
+    <p class="hint" style="margin-top:8px">After saving, upload the file to your website’s <b>data</b> folder (or just keep it there if you opened it directly). Refresh your site to see the change.</p>
+  </div>
+</div>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+let db = { reviewsAreSamples: false, reviews: [] };
+let handle = null, dirty = false;
+
+const setDirty = v => { dirty = v; const s = $("#saveState"); s.textContent = v ? "Unsaved changes" : ""; s.className = "state" + (v ? " dirty" : ""); };
+window.addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+function textOf(r, k) { return typeof r.text === "string" ? (k === "en" ? r.text : "") : ((r.text && r.text[k]) || ""); }
+function render() {
+  const list = $("#list");
+  $("#count").textContent = db.reviews.length ? `(${db.reviews.length})` : "";
+  if (!db.reviews.length) { list.innerHTML = '<p class="empty">No reviews yet. Add one above.</p>'; return; }
+  list.innerHTML = db.reviews.map((r, i) => `
+    <div class="row" data-i="${i}">
+      <div class="cols">
+        <div class="field"><label>Name</label><input data-f="name" value="${esc(r.name)}"></div>
+        <div class="field"><label>Date</label><input data-f="date" type="date" value="${esc(r.date || "")}"></div>
+        <div class="field full"><label>Review</label><textarea data-f="en" rows="2">${esc(typeof r.text === "string" ? r.text : (r.text && r.text.en) || "")}</textarea></div>
+        <div class="field full"><label>Hindi version (optional)</label><textarea data-f="hi" rows="2">${esc(typeof r.text === "string" ? "" : (r.text && r.text.hi) || "")}</textarea></div>
+      </div>
+      <div class="side">
+        <div class="field"><label>Stars</label><select data-f="rating">${[5,4,3,2,1].map(n => `<option value="${n}"${+r.rating === n ? " selected" : ""}>${n} ★</option>`).join("")}</select></div>
+        <label class="chk"><input type="checkbox" data-f="approved"${r.approved === false ? "" : " checked"}> Show on site</label>
+        <button class="del" type="button" data-del="${i}">Delete</button>
+      </div>
+    </div>`).join("");
+}
+
+$("#list").addEventListener("input", e => {
+  const row = e.target.closest(".row"); if (!row || !e.target.dataset.f) return;
+  const r = db.reviews[+row.dataset.i], f = e.target.dataset.f;
+  if (f === "name" || f === "date") r[f] = e.target.value;
+  else if (f === "rating") r.rating = +e.target.value;
+  else if (f === "approved") { if (e.target.checked) delete r.approved; else r.approved = false; }
+  else {                                   // review text (en / hi)
+    const en = f === "en" ? e.target.value : textOf(r, "en"), hi = f === "hi" ? e.target.value : textOf(r, "hi");
+    r.text = hi.trim() ? { en, hi } : en;
+  }
+  setDirty(true);
+});
+$("#list").addEventListener("click", e => {
+  const b = e.target.closest("[data-del]"); if (!b) return;
+  const i = +b.dataset.del;
+  if (b.dataset.sure !== "1") { b.dataset.sure = "1"; b.textContent = "Sure? Tap again"; setTimeout(() => { b.dataset.sure = ""; b.textContent = "Delete"; }, 3000); return; }
+  db.reviews.splice(i, 1); setDirty(true); render();
+});
+
+function addReview(name, rating, en, hi) {
+  name = name.trim(); en = en.trim(); rating = Math.round(+rating);
+  if (name.length < 2 || en.length < 3 || !(rating >= 1 && rating <= 5)) return false;
+  const id = Date.now().toString(36);
+  db.reviews.push({ id, name, rating, text: hi.trim() ? { en, hi: hi.trim() } : en, date: new Date().toISOString().slice(0, 10) });
+  db.reviewsAreSamples = false;           // you now have a real review: hide the "sample" note
+  setDirty(true); render(); return true;
+}
+$("#addBtn").addEventListener("click", () => {
+  const ok = addReview($("#aName").value, $("#aRating").value, $("#aText").value, $("#aHi").value);
+  $("#addMsg").textContent = ok ? "Added ✔ (remember to Save)" : "Please fill name and review.";
+  if (ok) { $("#aName").value = $("#aText").value = $("#aHi").value = ""; }
+});
+$("#pasteBtn").addEventListener("click", () => {
+  const t = $("#pasteBox").value, msg = $("#pasteMsg"); let o = null;
+  const a = t.indexOf("{"), z = t.lastIndexOf("}");
+  if (a >= 0 && z > a) { try { o = JSON.parse(t.slice(a, z + 1)); } catch (e) {} }
+  if (!o) {                                   // fall back to "Name: / Rating: " lines
+    const g = k => (t.match(new RegExp(k + "\\s*:\\s*(.+)", "i")) || [])[1];
+    const text = t.split("\n").filter(l => l.trim() && !/^(new review|name|rating)\b/i.test(l) && !l.includes("{")).join(" ");
+    if (g("name")) o = { name: g("name"), rating: parseInt(g("rating")) || 5, text };
+  }
+  if (!o || !o.name || !(o.text || o.review)) { msg.textContent = "Could not read it. Fill the form below instead."; return; }
+  $("#aName").value = o.name; $("#aRating").value = String(Math.min(5, Math.max(1, +o.rating || 5))); $("#aText").value = o.text || o.review;
+  $("#pasteBox").value = ""; msg.textContent = "Filled below. Check it, then press Add review.";
+});
+
+/* ---- file open / save ---- */
+function load(json, label) {
+  try {
+    const j = typeof json === "string" ? JSON.parse(json) : json;
+    db = { reviewsAreSamples: !!j.reviewsAreSamples, reviews: Array.isArray(j.reviews) ? j.reviews : [] };
+    $("#fileState").textContent = label + " (" + db.reviews.length + " reviews)"; $("#fileState").className = "state ok";
+    setDirty(false); render();
+  } catch (e) { $("#fileState").textContent = "That file is not a valid reviews.json"; $("#fileState").className = "state dirty"; }
+}
+fetch("data/reviews.json", { cache: "no-store" }).then(r => r.ok ? r.text() : Promise.reject()).then(t => load(t, "Loaded data/reviews.json"))
+  .catch(() => { $("#fileState").textContent = "Not loaded. Press “Open data/reviews.json”."; render(); });
+
+$("#openBtn").addEventListener("click", async () => {
+  if (window.showOpenFilePicker) {
+    try {
+      [handle] = await showOpenFilePicker({ types: [{ description: "JSON", accept: { "application/json": [".json"] } }] });
+      load(await (await handle.getFile()).text(), "Opened " + handle.name); return;
+    } catch (e) { handle = null; if (e.name === "AbortError") return; }
+  }
+  $("#fileIn").click();
+});
+$("#fileIn").addEventListener("change", async e => { const f = e.target.files[0]; if (f) { handle = null; load(await f.text(), "Opened " + f.name); } });
+
+$("#saveBtn").addEventListener("click", async () => {
+  const text = JSON.stringify(db, null, 2) + "\n", st = $("#saveState");
+  if (handle) {
+    try { const w = await handle.createWritable(); await w.write(text); await w.close(); setDirty(false); st.textContent = "Saved to " + handle.name + " ✔"; st.className = "state ok"; return; }
+    catch (e) { /* fall through to download */ }
+  }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type: "application/json" })); a.download = "reviews.json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setDirty(false); st.textContent = "Downloaded reviews.json. Put it in the data folder."; st.className = "state ok";
+});
+render();
+</script>
+</body>
+</html>
