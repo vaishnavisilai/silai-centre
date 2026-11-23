@@ -115,7 +115,7 @@ function renderFaq() {
 
 /* ---------- gallery ---------- */
 function art(d) {
-  if (d.image) return `<img src="${esc(d.image)}" alt="${esc(L(d.name))} – ${lang === "hi" ? "झूँसी सिलाई सेंटर" : "Jhusi Silai Centre"}" loading="lazy">`;
+  if (d.image) return `<img src="${esc(d.image)}" alt="${esc(L(d.name))} – ${lang === "hi" ? "वैष्णवी सिलाई सेंटर" : "Vaishnavi Silai Centre"}" loading="lazy">`;
   const [a, b] = d.c, g = "g" + d.id;
   const body = { pet: `<path d="M110 70 H210 L250 270 Q160 295 70 270 Z" fill="url(#${g})"/><path d="M110 70 H210" stroke="#c9a24a" stroke-width="6"/>`,
     fish: `<path d="M115 70 H205 L215 190 Q250 240 235 275 Q160 295 85 275 Q70 240 105 190 Z" fill="url(#${g})"/><path d="M115 70 H205" stroke="#c9a24a" stroke-width="6"/>`,

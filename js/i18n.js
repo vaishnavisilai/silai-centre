@@ -1,7 +1,7 @@
 // Fixed UI text in English / Hindi. (Editable business content lives in ../content.js)
 window.I18N = {
   en: {
-    title:"Ladies Blouse & Petticoat Tailor in Chamanganj Bazar Jhusi, Prayagraj | 2-Day Delivery – Jhusi Silai Centre",
+    title:"Ladies Blouse & Petticoat Tailor in Chamanganj Bazar Jhusi, Prayagraj | 2-Day Delivery – Vaishnavi Silai Centre",
     nav_services:"Services", nav_designs:"Designs", nav_process:"How it works", nav_reviews:"Reviews", nav_contact:"Contact",
     hero_eyebrow:"Chamanganj Bazar, Jhusi, Prayagraj • Ladies Tailor", hero_title:"Perfectly stitched", hero_badge:"⏱ Ready in 2 days*",
     hero_lead:"Custom ladies blouses and petticoats with perfect fitting, trendy designs and on-time delivery — stitched with love near Chamanganj Bazar, Jhusi, Prayagraj.",
@@ -33,7 +33,7 @@ window.I18N = {
     typed:["Blouse","Petticoat","Bridal Wear","Your Style"]
   },
   hi: {
-    title:"चमनगंज बाज़ार झूँसी, प्रयागराज में लेडीज़ ब्लाउज़ और पेटीकोट टेलर | 2 दिन में डिलीवरी – झूँसी सिलाई सेंटर",
+    title:"चमनगंज बाज़ार झूँसी, प्रयागराज में लेडीज़ ब्लाउज़ और पेटीकोट टेलर | 2 दिन में डिलीवरी – वैष्णवी सिलाई सेंटर",
     nav_services:"सेवाएँ", nav_designs:"डिज़ाइन", nav_process:"कैसे काम होता है", nav_reviews:"समीक्षा", nav_contact:"संपर्क",
     hero_eyebrow:"चमनगंज बाज़ार, झूँसी, प्रयागराज • लेडीज़ टेलर", hero_title:"बिल्कुल सटीक सिलाई", hero_badge:"⏱ 2 दिन में तैयार*",
     hero_lead:"लेडीज़ ब्लाउज़ और पेटीकोट की कस्टम सिलाई — परफेक्ट फिटिंग, नए डिज़ाइन और समय पर डिलीवरी। चमनगंज बाज़ार, झूँसी, प्रयागराज में प्यार से सिली गई।",
