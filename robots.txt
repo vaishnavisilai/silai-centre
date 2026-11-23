@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Replace with your real address after hosting
-Sitemap: https://YOUR-SITE.example/sitemap.xml
+Sitemap: https://vaishnavisilai.github.io/silai-centre/sitemap.xml
